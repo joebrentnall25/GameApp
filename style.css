@@ -1,0 +1,26 @@
+.games {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100px;
+}
+.games .games__game {
+  background-color: #64D2D0;
+}
+
+.nav {
+  background-color: #ff6b6b;
+}
+.nav h1 {
+  padding: 2rem;
+}
+.nav h1 a {
+  text-decoration: none;
+  color: #dce9f7;
+}
+
+* {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

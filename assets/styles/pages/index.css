@@ -1,0 +1,8 @@
+.games {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 100px;
+}
+.games .games__game {
+  background-color: #64D2D0;
+}

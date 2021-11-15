@@ -1,0 +1,10 @@
+@import "../utility/variables";
+
+.games {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px;
+    .games__game {
+        background-color: $secondary;
+    }
+}

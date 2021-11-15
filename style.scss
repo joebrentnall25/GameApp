@@ -1,0 +1,16 @@
+// Utilities
+@import "./assets/styles/utility/variables";
+
+// Pages
+@import "./assets/styles/pages/index.scss";
+
+// components 
+@import "./assets/styles/components/nav";
+@import "./assets/styles/components/footer";
+
+* {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
