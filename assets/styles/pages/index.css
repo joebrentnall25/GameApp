@@ -1,8 +1,30 @@
-.games {
+body {
+  background-color: #dce9f7;
+}
+body main {
+  text-align: center;
+}
+body main h2 {
+  margin: 2rem;
+  color: #222f3e;
+}
+body main .games {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 100px;
+  margin: 0 10%;
+  gap: 2rem;
 }
-.games .games__game {
-  background-color: #64D2D0;
+body main .games .games__game {
+  background-color: #ff6b6b;
+  border-radius: 2rem;
+}
+body main .games .games__game h3 {
+  margin: 2rem;
+  text-align: center;
+  color: #222f3e;
+}
+
+a {
+  text-decoration: none;
 }

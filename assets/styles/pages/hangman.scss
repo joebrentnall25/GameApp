@@ -1,0 +1,66 @@
+@import "../utility/variables";
+
+body {
+    background-color: $dark;
+    .main-game {
+        padding: 5rem;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;  
+        color: $light;
+        .hm__container {   
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            #hm__boxes {
+                display: grid;
+                gap: 1rem;
+                grid-template-rows: 2rem;
+                margin-bottom: 4rem;
+                
+                .hm__box-content{
+                    padding: 25px;
+                    background-color: $light;
+                    .hm__box-char {
+                        color: $dark
+                    }
+                    .hidden {
+                        display: none;
+                    }
+
+                }
+                .correct {
+                    background-color: $correct;
+                }
+            } 
+        }
+
+        .hm__keyboard {
+            display: grid;
+            grid-template-columns: repeat(6,1fr);
+            gap: 0.5rem;
+            .correct {
+                background-color: $correct !important;
+            }
+            .incorrect {
+                background-color: $incorrect !important;
+            }
+            .key {
+                background-color: $light;
+                padding: 1rem 0.5rem;
+                border-radius: 1rem;
+                border: none;
+            }
+            .key:nth-child(25) {
+                grid-row: 5 / 6;
+                grid-column: 3 / 4;
+            }
+            .key:nth-child(26) {
+                grid-row: 5 / 6;
+                grid-column: 4 / 5;
+            }
+        }
+    }
+}

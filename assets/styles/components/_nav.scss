@@ -1,9 +1,10 @@
 @import "../utility/variables";
 
 .nav {
-    background-color: $primary;
+    background-color: $secondary;
+    height: 10vh;
     h1 {
-        padding: 2rem
+        
     }
     h1 a {
         text-decoration: none;
