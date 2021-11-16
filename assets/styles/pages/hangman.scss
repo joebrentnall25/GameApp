@@ -21,6 +21,10 @@ body {
                 margin-bottom: 4rem;
                 
                 .hm__box-content{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
                     padding: 25px;
                     background-color: $light;
                     .hm__box-char {
@@ -60,6 +64,12 @@ body {
             .key:nth-child(26) {
                 grid-row: 5 / 6;
                 grid-column: 4 / 5;
+            }
+        }
+
+        .hm__lives {
+            #hm__lives {
+                color: $light;
             }
         }
     }
