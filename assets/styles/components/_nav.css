@@ -1,10 +1,8 @@
 .nav {
-  background-color: #ff6b6b;
-}
-.nav h1 {
-  padding: 2rem;
+  background-color: #64D2D0;
+  height: 10vh;
 }
 .nav h1 a {
   text-decoration: none;
-  color: #c8d6e5;
+  color: #dce9f7;
 }

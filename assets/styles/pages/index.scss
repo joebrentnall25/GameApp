@@ -1,10 +1,31 @@
 @import "../utility/variables";
-
-.games {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 100px;
-    .games__game {
-        background-color: $secondary;
+body{
+    background-color: $light;
+    main {
+        text-align: center;
+        h2 {
+            margin: 2rem;
+            color: $dark;
+        }
+        .games {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 100px;
+            margin: 0 10%;
+            gap: 2rem;        
+            .games__game {
+                background-color: $primary;
+                border-radius: 2rem;
+                h3 {
+                    margin: 2rem;
+                    text-align: center;
+                    color: $dark
+                }
+            }
+        }
     }
+}
+
+a {
+    text-decoration: none;
 }
