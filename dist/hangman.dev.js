@@ -4,8 +4,8 @@ var _data = require("./assets/data/data.js");
 
 var player = {
   score: 0,
-  lives: 8,
-  isGameOver: false,
+  lives: 0,
+  isGameOver: true,
   wordsGuessed: 0,
   currentLetters: 0,
   chosenDifficultly: 1,
@@ -20,6 +20,7 @@ var wordContainer = document.getElementById('hm__boxes');
 var initialise = function initialise() {
   player.currentLetters = 0;
   player.isGameOver = false;
+  player.lives = 8;
   word = wordSelector(); // function used to select word to use based on difficulty.
 
   updateScreen(0, 0);
@@ -152,4 +153,15 @@ for (var i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener('click', handleClick);
 }
 
-initialise();
+var difficultyButtons = document.getElementsByClassName('difficulty-btn');
+
+var _loop = function _loop(_i) {
+  difficultyButtons[_i].addEventListener('click', function () {
+    player.chosenDifficultly = parseInt(difficultyButtons[_i].dataset.difficulty);
+    initialise();
+  });
+};
+
+for (var _i = 0; _i < difficultyButtons.length; _i++) {
+  _loop(_i);
+}

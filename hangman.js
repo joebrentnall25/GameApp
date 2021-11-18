@@ -2,8 +2,8 @@ import { hangmanWords } from "./assets/data/data.js";
 
 const player = {
     score: 0,
-    lives: 8,
-    isGameOver: false,
+    lives: 0,
+    isGameOver: true,
     wordsGuessed: 0,
     currentLetters: 0,
     chosenDifficultly: 1,
@@ -23,6 +23,7 @@ const wordContainer = document.getElementById('hm__boxes');
 const initialise = () => {
     player.currentLetters = 0;
     player.isGameOver = false;
+    player.lives = 8;
 
     word = wordSelector(); // function used to select word to use based on difficulty.
 
@@ -148,7 +149,10 @@ for (let i = 0; i<buttons.length; i++){
     buttons[i].addEventListener('click',handleClick);
 }
 
-
-
-
-initialise();
+const difficultyButtons = document.getElementsByClassName('difficulty-btn');
+for (let i = 0; i<difficultyButtons.length; i++) {
+    difficultyButtons[i].addEventListener('click', () => {
+        player.chosenDifficultly = parseInt(difficultyButtons[i].dataset.difficulty);
+        initialise();
+    });
+}
