@@ -21,6 +21,7 @@ var initialise = function initialise() {
   player.currentLetters = 0;
   player.isGameOver = false;
   player.lives = 8;
+  resetInputColours();
   word = wordSelector(); // function used to select word to use based on difficulty.
 
   updateScreen(0, 0);
@@ -55,6 +56,7 @@ var wordSelector = function wordSelector() {
 
     default:
       console.log("ERROR: You have inputted an invalid difficulty.");
+      break;
   }
 
   var wordArr = wordStr.split('');
@@ -86,6 +88,8 @@ var updateScreen = function updateScreen(score, message) {
 
     case 2:
       livesLabel.innerHTML = "You Lost!";
+      player.score = 0;
+      pointsLabel.innerHTML = "Score: ".concat(player.score);
       break;
   }
 };
@@ -124,8 +128,9 @@ var incorrectLetter = function incorrectLetter() {
   player.lives--;
 
   if (player.lives == 0) {
-    updateScreen(0, 2);
+    player.score = 0;
     player.isGameOver = true;
+    updateScreen(0, 2);
   } else {
     updateScreen(0, 0);
   }
@@ -165,3 +170,11 @@ var _loop = function _loop(_i) {
 for (var _i = 0; _i < difficultyButtons.length; _i++) {
   _loop(_i);
 }
+
+var resetInputColours = function resetInputColours() {
+  for (var _i2 = 0; _i2 < buttons.length; _i2++) {
+    buttons[_i2].classList.remove('correct');
+
+    buttons[_i2].classList.remove('incorrect');
+  }
+};

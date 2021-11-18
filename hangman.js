@@ -24,6 +24,7 @@ const initialise = () => {
     player.currentLetters = 0;
     player.isGameOver = false;
     player.lives = 8;
+    resetInputColours();
 
     word = wordSelector(); // function used to select word to use based on difficulty.
 
@@ -56,7 +57,8 @@ const wordSelector = () => {
             wordStr = words.hard[randomNumberForWord(words.hard.length)];
             break;
         default: 
-            console.log("ERROR: You have inputted an invalid difficulty.")
+            console.log("ERROR: You have inputted an invalid difficulty.");
+            break;
     }
     const wordArr = wordStr.split('');
     return wordArr;
@@ -87,6 +89,8 @@ const updateScreen = (score,message) => {
             break;
         case 2:
             livesLabel.innerHTML = `You Lost!`;
+            player.score = 0;
+            pointsLabel.innerHTML = `Score: ${player.score}`;
             break;
     }
 
@@ -121,8 +125,9 @@ const correctLetter = (key) => {
 const incorrectLetter = () => {
     player.lives--;
     if (player.lives == 0) {
-        updateScreen(0,2);
+        player.score = 0;        
         player.isGameOver = true;
+        updateScreen(0,2);
     } else {
         updateScreen(0,0);
     }     
@@ -155,4 +160,11 @@ for (let i = 0; i<difficultyButtons.length; i++) {
         player.chosenDifficultly = parseInt(difficultyButtons[i].dataset.difficulty);
         initialise();
     });
+}
+
+const resetInputColours = () => {
+    for (let i = 0; i<buttons.length; i++){
+        buttons[i].classList.remove('correct');
+        buttons[i].classList.remove('incorrect');
+    }
 }
