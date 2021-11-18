@@ -1,21 +1,63 @@
 "use strict";
 
+var _data = require("./assets/data/data.js");
+
 var player = {
   score: 0,
   lives: 8,
-  isGameOver: false
+  isGameOver: false,
+  wordsGuessed: 0,
+  currentLetters: 0,
+  chosenDifficultly: 1,
+  highScore: 0
 };
-var word = ['m', 'a', 's', 't', 'e', 'r'];
+var word = [];
+var vowels = ['a', 'e', 'i', 'o', 'u'];
+var words = _data.hangmanWords.words;
+console.log(words);
 var wordContainer = document.getElementById('hm__boxes');
 
 var initialise = function initialise() {
-  livesLabel.innerHTML = player.lives;
+  player.currentLetters = 0;
+  player.isGameOver = false;
+  word = wordSelector(); // function used to select word to use based on difficulty.
+
+  updateScreen(0, 0);
   var html = "";
   word.forEach(function (letter) {
     html += "<div class='hm__box-content'>\n                    <div class='hm__box-char hidden'>".concat(letter, "</div>\n                </div>");
   });
-  wordContainer.style.gridTemplateColumns = "repeat(".concat(word.length, ", 50px)");
+  wordContainer.style.gridTemplateColumns = "repeat(".concat(word.length, ", 1fr)");
   wordContainer.innerHTML = html;
+};
+
+var randomNumberForWord = function randomNumberForWord(wordArrLen) {
+  var num = Math.floor(Math.random() * wordArrLen);
+  return num;
+};
+
+var wordSelector = function wordSelector() {
+  var wordStr = '';
+
+  switch (player.chosenDifficultly) {
+    case 0:
+      wordStr = words.easy[randomNumberForWord(words.easy.length)];
+      break;
+
+    case 1:
+      wordStr = words.medium[randomNumberForWord(words.medium.length)];
+      break;
+
+    case 2:
+      wordStr = words.hard[randomNumberForWord(words.hard.length)];
+      break;
+
+    default:
+      console.log("ERROR: You have inputted an invalid difficulty.");
+  }
+
+  var wordArr = wordStr.split('');
+  return wordArr;
 };
 
 var isCorrect = function isCorrect(letter) {
@@ -26,11 +68,65 @@ var isCorrect = function isCorrect(letter) {
   }
 };
 
-updateScreen = function updateScreen(message) {
-  if (message) {
-    livesLabel.innerHTML = message;
+var livesLabel = document.getElementById('hm__lives');
+var pointsLabel = document.getElementById('hm__points');
+
+var updateScreen = function updateScreen(score, message) {
+  switch (message) {
+    case 0:
+      livesLabel.innerHTML = "Lives Remaining: ".concat(player.lives);
+      player.score += score;
+      pointsLabel.innerHTML = "Score: ".concat(player.score);
+      break;
+
+    case 1:
+      livesLabel.innerHTML = "You Won!";
+      break;
+
+    case 2:
+      livesLabel.innerHTML = "You Lost!";
+      break;
+  }
+};
+
+var correctLetter = function correctLetter(key) {
+  var tempPoints = 0;
+
+  for (var i = 0; i < word.length; i++) {
+    if (key == word[i]) {
+      letterBoxes[i].classList.add('correct');
+      player.currentLetters += 1;
+
+      if (vowels.includes(key)) {
+        tempPoints += 10;
+      } else {
+        tempPoints += 15;
+      }
+
+      console.log(tempPoints);
+      hiddenLetters[i].classList.remove('hidden');
+    }
+  }
+
+  console.log(player.currentLetters);
+
+  if (player.currentLetters == word.length) {
+    updateScreen(0, 1);
+    player.isGameOver = true;
   } else {
-    livesLabel.innerHTML = player.lives;
+    console.log('points');
+    updateScreen(tempPoints, 0);
+  }
+};
+
+var incorrectLetter = function incorrectLetter() {
+  player.lives--;
+
+  if (player.lives == 0) {
+    updateScreen(0, 2);
+    player.isGameOver = true;
+  } else {
+    updateScreen(0, 0);
   }
 };
 
@@ -44,25 +140,10 @@ var handleClick = function handleClick(e) {
 
     if (isCorrect(key)) {
       e.target.classList.add('correct');
-
-      for (var i = 0; i < word.length; i++) {
-        if (key == word[i]) {
-          letterBoxes[i].classList.add('correct');
-          hiddenLetters[i].classList.remove('hidden');
-        }
-      }
-
-      updateScreen();
+      correctLetter(key);
     } else {
       e.target.classList.add('incorrect');
-      player.lives--;
-
-      if (player.lives == 0) {
-        updateScreen("Game Over");
-        player.isGameOver = true;
-      } else {
-        updateScreen();
-      }
+      incorrectLetter();
     }
   }
 };
@@ -71,5 +152,4 @@ for (var i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener('click', handleClick);
 }
 
-var livesLabel = document.getElementById('hm__lives');
 initialise();
