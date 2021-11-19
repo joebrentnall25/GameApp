@@ -9,7 +9,8 @@ const player = {
     chosenDifficultly: 1,
     highScore: 0,
     correctGuesses: [],
-    incorrectGuesses: []
+    incorrectGuesses: [],
+    previousWords: []
 };
 
 const points = hangman.points; // Score from data file
@@ -27,7 +28,9 @@ const initialise = () => {
     player.currentLetters = 0;
     player.isGameOver = false;
     player.lives = 8;
-    checkIfNewHighscore(0);
+    player.incorrectGuesses = [];
+    player.correctGuesses = [];
+    checkIfNewHighscore();
     resetInputColours();
 
     word = wordSelector(); // function used to select word to use based on difficulty.
@@ -121,6 +124,7 @@ const correctLetter = (key) => {
             }
         }
         if (player.currentLetters == word.length) {
+            removeWords(word.join(''));
             updateScreen(tempPoints,1);
             player.isGameOver = true;
             checkIfNewHighscore(player.score);
@@ -246,13 +250,28 @@ document.addEventListener('keydown', function(event) {
 
 const checkIfNewHighscore = (score) => {
     const highscore = window.sessionStorage.getItem('highScore');
-    if (!highscore || highscore < score) {
+    if (!!sessionStorage.getItem('highScore') || highscore < score) {
         window.sessionStorage.setItem('highScore', score);
         document.getElementById('hm__highscore').innerHTML = `Highscore: ${highscore}`
     }
     document.getElementById('hm__highscore').innerHTML = `Highscore: ${highscore}`
 }
 
-toggleButtons = (option) => {
-    
+const removeWords = (word) => {
+    let wordIndex = -1;
+    switch (player.chosenDifficultly){
+    case 0: 
+        wordIndex = words.easy.indexOf(word);
+        words.easy.splice(wordIndex, 1);
+        break;
+    case 1:
+        wordIndex = words.medium.indexOf(word);
+        words.medium.splice(wordIndex, 1);
+        break;
+    case 2: 
+        wordIndex = words.hard.indexOf(word);
+        words.hard.splice(wordIndex, 1);
+        break;
+    }
+    console.log(words)
 }

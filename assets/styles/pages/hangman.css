@@ -8,6 +8,12 @@ body .main-game {
   flex-direction: column;
   color: #dce9f7;
 }
+body .main-game .difficulty {
+  margin: 2rem 0;
+}
+body .main-game .difficulty button {
+  padding: 1rem;
+}
 body .main-game .hm__points {
   margin-bottom: 2rem;
 }
@@ -20,7 +26,7 @@ body .main-game .hm__container {
 }
 body .main-game .hm__container #hm__boxes {
   display: grid;
-  gap: 1rem;
+  gap: 0.5rem;
   grid-template-rows: 2rem;
   margin-bottom: 2rem;
 }

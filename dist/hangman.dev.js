@@ -11,7 +11,8 @@ var player = {
   chosenDifficultly: 1,
   highScore: 0,
   correctGuesses: [],
-  incorrectGuesses: []
+  incorrectGuesses: [],
+  previousWords: []
 };
 var points = _data.hangman.points; // Score from data file
 
@@ -27,7 +28,9 @@ var initialise = function initialise() {
   player.currentLetters = 0;
   player.isGameOver = false;
   player.lives = 8;
-  checkIfNewHighscore(0);
+  player.incorrectGuesses = [];
+  player.correctGuesses = [];
+  checkIfNewHighscore();
   resetInputColours();
   word = wordSelector(); // function used to select word to use based on difficulty.
 
@@ -128,6 +131,7 @@ var correctLetter = function correctLetter(key) {
     }
 
     if (player.currentLetters == word.length) {
+      removeWords(word.join(''));
       updateScreen(tempPoints, 1);
       player.isGameOver = true;
       checkIfNewHighscore(player.score);
@@ -295,7 +299,7 @@ document.addEventListener('keydown', function (event) {
 var checkIfNewHighscore = function checkIfNewHighscore(score) {
   var highscore = window.sessionStorage.getItem('highScore');
 
-  if (!highscore || highscore < score) {
+  if (!!sessionStorage.getItem('highScore') || highscore < score) {
     window.sessionStorage.setItem('highScore', score);
     document.getElementById('hm__highscore').innerHTML = "Highscore: ".concat(highscore);
   }
@@ -303,4 +307,25 @@ var checkIfNewHighscore = function checkIfNewHighscore(score) {
   document.getElementById('hm__highscore').innerHTML = "Highscore: ".concat(highscore);
 };
 
-toggleButtons = function toggleButtons(option) {};
+var removeWords = function removeWords(word) {
+  var wordIndex = -1;
+
+  switch (player.chosenDifficultly) {
+    case 0:
+      wordIndex = words.easy.indexOf(word);
+      words.easy.splice(wordIndex, 1);
+      break;
+
+    case 1:
+      wordIndex = words.medium.indexOf(word);
+      words.medium.splice(wordIndex, 1);
+      break;
+
+    case 2:
+      wordIndex = words.hard.indexOf(word);
+      words.hard.splice(wordIndex, 1);
+      break;
+  }
+
+  console.log(words);
+};
