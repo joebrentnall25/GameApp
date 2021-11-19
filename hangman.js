@@ -18,12 +18,14 @@ const vowels = ['a','e','i','o','u'];
 
 
 const wordContainer = document.getElementById('hm__boxes');
+const highscoreHTML = document.getElementById('hm__highscore');
 
 const initialise = () => {
     displayDifficultyButtons(0);
     player.currentLetters = 0;
     player.isGameOver = false;
     player.lives = 8;
+    checkIfNewHighscore(0);
     resetInputColours();
 
     word = wordSelector(); // function used to select word to use based on difficulty.
@@ -117,6 +119,7 @@ const correctLetter = (key) => {
     if (player.currentLetters == word.length) {
         updateScreen(tempPoints,1);
         player.isGameOver = true;
+        checkIfNewHighscore(player.score);
         displayDifficultyButtons(1);
     } else {
         updateScreen(tempPoints,0);
@@ -232,3 +235,12 @@ document.addEventListener('keydown', function(event) {
     else if(event.key == 'y') {document.getElementById(event.key).click();} 
     else if(event.key == 'z') {document.getElementById(event.key).click();} 
 });
+
+const checkIfNewHighscore = (score) => {
+    const highscore = window.sessionStorage.getItem('highScore');
+    if (!highscore || highscore < score) {
+        window.sessionStorage.setItem('highScore', score);
+        document.getElementById('hm__highscore').innerHTML = `Highscore: ${highscore}`
+    }
+    document.getElementById('hm__highscore').innerHTML = `Highscore: ${highscore}`
+}
