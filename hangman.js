@@ -7,7 +7,9 @@ const player = {
     wordsGuessed: 0,
     currentLetters: 0,
     chosenDifficultly: 1,
-    highScore: 0
+    highScore: 0,
+    correctGuesses: [],
+    incorrectGuesses: []
 };
 
 const points = hangman.points; // Score from data file
@@ -102,40 +104,46 @@ const updateScreen = (score,message) => {
 
 const correctLetter = (key) => {
     let tempPoints = 0;
-    for (let i = 0; i < word.length; i++) {
-        if(key == word[i]){
-            const points = pointSelector();
-            letterBoxes[i].classList.add('correct');
-            player.currentLetters += 1;
-            if (vowels.includes(key)){
-                console.log(points[1]);
-                tempPoints+=points[1];
-            } else {
-                tempPoints+=points[0];
+    if (!player.correctGuesses.includes(key)){    
+        player.correctGuesses.push(key);
+        for (let i = 0; i < word.length; i++) {
+            if(key == word[i]){
+                const points = pointSelector();
+                letterBoxes[i].classList.add('correct');
+                player.currentLetters += 1;
+                if (vowels.includes(key)){
+                    console.log(points[1]);
+                    tempPoints+=points[1];
+                } else {
+                    tempPoints+=points[0];
+                }
+                hiddenLetters[i].classList.remove('hidden');
             }
-            hiddenLetters[i].classList.remove('hidden');
         }
-    }
-    if (player.currentLetters == word.length) {
-        updateScreen(tempPoints,1);
-        player.isGameOver = true;
-        checkIfNewHighscore(player.score);
-        displayDifficultyButtons(1);
-    } else {
-        updateScreen(tempPoints,0);
+        if (player.currentLetters == word.length) {
+            updateScreen(tempPoints,1);
+            player.isGameOver = true;
+            checkIfNewHighscore(player.score);
+            displayDifficultyButtons(1);
+        } else {
+            updateScreen(tempPoints,0);
+        }
     }
 }
 
-const incorrectLetter = () => {
-    player.lives--;
-    if (player.lives == 0) {
-        player.score = 0;        
-        player.isGameOver = true;
-        displayDifficultyButtons(1);
-        updateScreen(0,2);
-    } else {
-        updateScreen(0,0);
-    }     
+const incorrectLetter = (key) => {
+    if (!player.incorrectGuesses.includes(key)){
+        player.incorrectGuesses.push(key)
+        player.lives--;
+        if (player.lives == 0) {
+            player.score = 0;        
+            player.isGameOver = true;
+            displayDifficultyButtons(1);
+            updateScreen(0,2);
+        } else {
+            updateScreen(0,0);
+        }    
+    } 
 }
 
 const buttons = document.getElementsByClassName('key');
@@ -151,7 +159,7 @@ const handleClick = (e) => {
         }
         else {
             e.target.classList.add('incorrect');
-            incorrectLetter();
+            incorrectLetter(key);
         }
     }
 }
@@ -243,4 +251,8 @@ const checkIfNewHighscore = (score) => {
         document.getElementById('hm__highscore').innerHTML = `Highscore: ${highscore}`
     }
     document.getElementById('hm__highscore').innerHTML = `Highscore: ${highscore}`
+}
+
+toggleButtons = (option) => {
+    
 }
