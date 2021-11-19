@@ -203,3 +203,32 @@ const pointSelector = () => {
             
     }
 } 
+
+document.addEventListener('keydown', function(event) {
+    if(event.key == 'a') {document.getElementById(event.key).click();} 
+    else if(event.key == 'b') {document.getElementById(event.key).click();} 
+    else if(event.key == 'c') {document.getElementById(event.key).click();} 
+    else if(event.key == 'd') {document.getElementById(event.key).click();} 
+    else if(event.key == 'e') {document.getElementById(event.key).click();} 
+    else if(event.key == 'f') {document.getElementById(event.key).click();} 
+    else if(event.key == 'g') {document.getElementById(event.key).click();} 
+    else if(event.key == 'h') {document.getElementById(event.key).click();} 
+    else if(event.key == 'i') {document.getElementById(event.key).click();} 
+    else if(event.key == 'j') {document.getElementById(event.key).click();} 
+    else if(event.key == 'k') {document.getElementById(event.key).click();} 
+    else if(event.key == 'l') {document.getElementById(event.key).click();} 
+    else if(event.key == 'm') {document.getElementById(event.key).click();} 
+    else if(event.key == 'n') {document.getElementById(event.key).click();} 
+    else if(event.key == 'o') {document.getElementById(event.key).click();} 
+    else if(event.key == 'p') {document.getElementById(event.key).click();} 
+    else if(event.key == 'q') {document.getElementById(event.key).click();} 
+    else if(event.key == 'r') {document.getElementById(event.key).click();} 
+    else if(event.key == 's') {document.getElementById(event.key).click();} 
+    else if(event.key == 't') {document.getElementById(event.key).click();} 
+    else if(event.key == 'u') {document.getElementById(event.key).click();} 
+    else if(event.key == 'v') {document.getElementById(event.key).click();} 
+    else if(event.key == 'w') {document.getElementById(event.key).click();} 
+    else if(event.key == 'x') {document.getElementById(event.key).click();} 
+    else if(event.key == 'y') {document.getElementById(event.key).click();} 
+    else if(event.key == 'z') {document.getElementById(event.key).click();} 
+});
