@@ -18,6 +18,7 @@ console.log(words);
 var wordContainer = document.getElementById('hm__boxes');
 
 var initialise = function initialise() {
+  displayDifficultyButtons(0);
   player.currentLetters = 0;
   player.isGameOver = false;
   player.lives = 8;
@@ -118,6 +119,7 @@ var correctLetter = function correctLetter(key) {
   if (player.currentLetters == word.length) {
     updateScreen(0, 1);
     player.isGameOver = true;
+    displayDifficultyButtons(1);
   } else {
     console.log('points');
     updateScreen(tempPoints, 0);
@@ -130,6 +132,7 @@ var incorrectLetter = function incorrectLetter() {
   if (player.lives == 0) {
     player.score = 0;
     player.isGameOver = true;
+    displayDifficultyButtons(1);
     updateScreen(0, 2);
   } else {
     updateScreen(0, 0);
@@ -176,5 +179,27 @@ var resetInputColours = function resetInputColours() {
     buttons[_i2].classList.remove('correct');
 
     buttons[_i2].classList.remove('incorrect');
+  }
+};
+
+var displayDifficultyButtons = function displayDifficultyButtons(option) {
+  switch (option) {
+    case 0:
+      for (var _i3 = 0; _i3 < difficultyButtons.length; _i3++) {
+        difficultyButtons[_i3].style.display = 'none';
+      }
+
+      break;
+
+    case 1:
+      for (var _i4 = 0; _i4 < difficultyButtons.length; _i4++) {
+        difficultyButtons[_i4].style.display = 'inline-block';
+      }
+
+      break;
+
+    default:
+      console.log('ERROR: difficult display option invalid.');
+      break;
   }
 };

@@ -21,6 +21,7 @@ console.log(words);
 const wordContainer = document.getElementById('hm__boxes');
 
 const initialise = () => {
+    displayDifficultyButtons(0);
     player.currentLetters = 0;
     player.isGameOver = false;
     player.lives = 8;
@@ -116,6 +117,7 @@ const correctLetter = (key) => {
     if (player.currentLetters == word.length) {
         updateScreen(0,1);
         player.isGameOver = true;
+        displayDifficultyButtons(1);
     } else {
         console.log('points')
         updateScreen(tempPoints,0);
@@ -127,6 +129,7 @@ const incorrectLetter = () => {
     if (player.lives == 0) {
         player.score = 0;        
         player.isGameOver = true;
+        displayDifficultyButtons(1);
         updateScreen(0,2);
     } else {
         updateScreen(0,0);
@@ -166,5 +169,23 @@ const resetInputColours = () => {
     for (let i = 0; i<buttons.length; i++){
         buttons[i].classList.remove('correct');
         buttons[i].classList.remove('incorrect');
+    }
+}
+
+const displayDifficultyButtons = (option) => {
+    switch (option) {
+        case 0: 
+            for (let i = 0; i< difficultyButtons.length; i++) {
+                difficultyButtons[i].style.display = 'none';
+            }
+            break;
+        case 1: 
+            for (let i = 0; i< difficultyButtons.length; i++) {
+                difficultyButtons[i].style.display = 'inline-block';
+            }
+            break;
+        default: 
+            console.log('ERROR: difficult display option invalid.')
+            break;
     }
 }
