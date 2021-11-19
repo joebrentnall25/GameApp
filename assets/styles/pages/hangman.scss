@@ -8,6 +8,12 @@ body {
         display: flex;
         flex-direction: column;  
         color: $light;
+        .difficulty {
+            margin-bottom: 2rem;
+            button {
+                padding: 1rem;
+            }
+        }
         .hm__points {
             margin-bottom: 2rem;
         }
