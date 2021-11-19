@@ -1,4 +1,4 @@
-import { hangmanWords } from "./assets/data/data.js";
+import { hangman } from "./assets/data/data.js";
 
 const player = {
     score: 0,
@@ -10,13 +10,12 @@ const player = {
     highScore: 0
 };
 
-
+const points = hangman.points; // Score from data file
+const words = hangman.words; // words from data file
 
 let word = [];
 const vowels = ['a','e','i','o','u']; 
 
-const words = hangmanWords.words;
-console.log(words);
 
 const wordContainer = document.getElementById('hm__boxes');
 
@@ -81,12 +80,13 @@ const updateScreen = (score,message) => {
     switch (message){
         case 0:
             livesLabel.innerHTML = `Lives Remaining: ${player.lives}`;
-
             player.score+=score;
             pointsLabel.innerHTML = `Score: ${player.score}`; 
             break;
         case 1:
             livesLabel.innerHTML = `You Won!`;
+            player.score+=score;
+            pointsLabel.innerHTML = `Score: ${player.score}`;
             break;
         case 2:
             livesLabel.innerHTML = `You Lost!`;
@@ -102,24 +102,23 @@ const correctLetter = (key) => {
     let tempPoints = 0;
     for (let i = 0; i < word.length; i++) {
         if(key == word[i]){
+            const points = pointSelector();
             letterBoxes[i].classList.add('correct');
             player.currentLetters += 1;
             if (vowels.includes(key)){
-                tempPoints+=10;
+                console.log(points[1]);
+                tempPoints+=points[1];
             } else {
-                tempPoints+=15;
+                tempPoints+=points[0];
             }
-            console.log(tempPoints)
             hiddenLetters[i].classList.remove('hidden');
         }
     }
-    console.log(player.currentLetters)
     if (player.currentLetters == word.length) {
-        updateScreen(0,1);
+        updateScreen(tempPoints,1);
         player.isGameOver = true;
         displayDifficultyButtons(1);
     } else {
-        console.log('points')
         updateScreen(tempPoints,0);
     }
 }
@@ -189,3 +188,18 @@ const displayDifficultyButtons = (option) => {
             break;
     }
 }
+
+const pointSelector = () => {
+    switch(player.chosenDifficultly) {
+        case 0: 
+            return [points[0].c, points[0].v];
+        case 1: 
+            return [points[1].c, points[1].v];
+        case 2: 
+            return [points[2].c, points[2].v];
+        default: 
+            console.log('ERROR: invalid difficulty in point selector.');
+            break;
+            
+    }
+} 
