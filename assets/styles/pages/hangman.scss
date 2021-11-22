@@ -1,7 +1,7 @@
 @import "../utility/variables";
 
 body {
-    background-color: $dark;
+    background-color: $primary;
     .main-game {
         padding: 5%;
         height: 90vh;
@@ -12,6 +12,8 @@ body {
             margin: 2rem 0;
             button {
                 padding: 1rem;
+                border-radius: 1rem;
+                border: none;
             }
         }
         .hm__points {
@@ -81,6 +83,13 @@ body {
             #hm__lives {
                 color: $light;
             }
+        }
+
+        .hm__reset {
+            padding: 1rem;
+            border: none;
+            border-radius: 1rem;
+            margin-top: 2rem;
         }
     }
 }

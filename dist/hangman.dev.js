@@ -18,6 +18,7 @@ var points = _data.hangman.points; // Score from data file
 
 var words = _data.hangman.words; // words from data file
 
+var alphabet = _data.hangman.alphabet;
 var word = [];
 var vowels = ['a', 'e', 'i', 'o', 'u'];
 var wordContainer = document.getElementById('hm__boxes');
@@ -30,7 +31,7 @@ var initialise = function initialise() {
   player.lives = 8;
   player.incorrectGuesses = [];
   player.correctGuesses = [];
-  checkIfNewHighscore();
+  checkIfNewHighscore(player.score);
   resetInputColours();
   word = wordSelector(); // function used to select word to use based on difficulty.
 
@@ -241,70 +242,20 @@ var pointSelector = function pointSelector() {
 };
 
 document.addEventListener('keydown', function (event) {
-  if (event.key == 'a') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'b') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'c') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'd') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'e') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'f') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'g') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'h') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'i') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'j') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'k') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'l') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'm') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'n') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'o') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'p') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'q') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'r') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 's') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 't') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'u') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'v') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'w') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'x') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'y') {
-    document.getElementById(event.key).click();
-  } else if (event.key == 'z') {
+  if (alphabet.includes(event.key)) {
     document.getElementById(event.key).click();
   }
 });
 
 var checkIfNewHighscore = function checkIfNewHighscore(score) {
-  var highscore = window.sessionStorage.getItem('highScore');
+  var highScore = window.sessionStorage.getItem('highScore');
 
-  if (!!sessionStorage.getItem('highScore') || highscore < score) {
-    window.sessionStorage.setItem('highScore', score);
-    document.getElementById('hm__highscore').innerHTML = "Highscore: ".concat(highscore);
+  if (!sessionStorage.getItem('highScore') || highScore < score) {
+    sessionStorage.setItem('highScore', score);
+    document.getElementById('hm__highscore').innerHTML = "Highscore: ".concat(highScore);
   }
 
-  document.getElementById('hm__highscore').innerHTML = "Highscore: ".concat(highscore);
+  document.getElementById('hm__highscore').innerHTML = "Highscore: ".concat(highScore);
 };
 
 var removeWords = function removeWords(word) {
@@ -329,3 +280,9 @@ var removeWords = function removeWords(word) {
 
   console.log(words);
 };
+
+document.getElementById('hm__reset').addEventListener('click', function () {
+  player.score = 0;
+  player.isGameOver = true;
+  displayDifficultyButtons(1);
+});

@@ -13,13 +13,19 @@ export const hangman = {
             c: 60 
         }
     },
+    alphabet: [
+        'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+    ],
+    vowels: [
+        'a','e','i','o','u'
+    ],
     words: {
         easy: [
             'food',
             'bed',
             'hello',
             'mister',
-            'firend',
+            'friend',
             'girl',
             'mother',
             'father',
@@ -38,6 +44,8 @@ export const hangman = {
             'tornado',
             'earthquake',
             'potato',
+            'distinct',
+            'problem'
         ],
         hard: [
             'gizmo',

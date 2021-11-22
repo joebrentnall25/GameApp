@@ -1,5 +1,5 @@
 body {
-  background-color: #222f3e;
+  background-color: #28338c;
 }
 body .main-game {
   padding: 5%;
@@ -13,6 +13,8 @@ body .main-game .difficulty {
 }
 body .main-game .difficulty button {
   padding: 1rem;
+  border-radius: 1rem;
+  border: none;
 }
 body .main-game .hm__points {
   margin-bottom: 2rem;
@@ -77,4 +79,10 @@ body .main-game .hm__lives {
 }
 body .main-game .hm__lives #hm__lives {
   color: #dce9f7;
+}
+body .main-game .hm__reset {
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  margin-top: 2rem;
 }
