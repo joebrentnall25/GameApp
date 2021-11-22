@@ -285,4 +285,5 @@ document.getElementById('hm__reset').addEventListener('click', function () {
   player.score = 0;
   player.isGameOver = true;
   displayDifficultyButtons(1);
+  updateScreen(0);
 });
