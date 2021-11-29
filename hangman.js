@@ -72,6 +72,12 @@ const wordSelector = () => {
     return wordArr;
 }
 
+const checkIfArrayEmpty = (array) => {
+    if (array.length === 0){
+        return true; 
+    }
+}
+
 const isCorrect = (letter) => {
     if (word.includes(letter)){
         return true;
@@ -148,7 +154,7 @@ const incorrectLetter = (key) => {
         } else {
             updateScreen(0,0);
         }    
-    } 
+    }
 }
 
 const buttons = document.getElementsByClassName('key');
@@ -203,6 +209,17 @@ const displayDifficultyButtons = (option) => {
             console.log('ERROR: difficult display option invalid.')
             break;
     }
+    
+    if (words.easy.length === 0){
+        difficultyButtons[0].style.display = 'none';
+    }
+    if (words.medium.length === 0){
+        difficultyButtons[1].style.display = 'none';
+    }
+    if (words.hard.length === 0){
+        difficultyButtons[2].style.display = 'none';
+    }
+    
 }
 
 const pointSelector = () => {

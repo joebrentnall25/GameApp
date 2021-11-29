@@ -21,6 +21,7 @@ export const hangman = {
     ],
     words: {
         easy: [
+            'cat',
             'food',
             'bed',
             'hello',

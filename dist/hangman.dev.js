@@ -74,6 +74,12 @@ var wordSelector = function wordSelector() {
   return wordArr;
 };
 
+var checkIfArrayEmpty = function checkIfArrayEmpty(array) {
+  if (array.length === 0) {
+    return true;
+  }
+};
+
 var isCorrect = function isCorrect(letter) {
   if (word.includes(letter)) {
     return true;
@@ -221,6 +227,18 @@ var displayDifficultyButtons = function displayDifficultyButtons(option) {
     default:
       console.log('ERROR: difficult display option invalid.');
       break;
+  }
+
+  if (words.easy.length === 0) {
+    difficultyButtons[0].style.display = 'none';
+  }
+
+  if (words.medium.length === 0) {
+    difficultyButtons[1].style.display = 'none';
+  }
+
+  if (words.hard.length === 0) {
+    difficultyButtons[2].style.display = 'none';
   }
 };
 
